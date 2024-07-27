@@ -23,17 +23,15 @@ CHORDS= {
     "Bm": ["B", "D", "F#"]
 }
 
-CHORDLIST=list(CHORDS.keys())
-CHORDLIST.sort()
+CHORDLIST=sorted(CHORDS)
 
 
 
 
 def player(c):
-        s=[]
         pygame.mixer.stop()
-        for i in c:
-            s.append(pygame.mixer.Sound('assets/notes/'+i+'.wav'))
+        s=[pygame.mixer.Sound('assets/notes/'+i+'.wav') for i in c]
+    
         for x,j in enumerate(s):
             pygame.mixer.Channel(x).play(j)
 
