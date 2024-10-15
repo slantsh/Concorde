@@ -96,8 +96,8 @@ while run==True:
             else:
                 play_index = 0  
         if stopbutton.collidepoint(pygame.mouse.get_pos()):
-                if pygame.mouse.get_pressed()[0]:
-                    playing=False    
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                playing=False    
 
                 
 
