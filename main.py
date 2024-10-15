@@ -37,6 +37,17 @@ def player(c):
         for x,j in enumerate(s):
             pygame.mixer.Channel(x).play(j)
 
+
+
+progression=[]
+def tracker(t):
+    if len(progression)>4:
+        progression.pop()
+
+playing=False
+last_play_time=time.time()
+play_index=0
+
 run=True
 while run==True:
     timer.tick(60)
@@ -50,7 +61,14 @@ while run==True:
             clabel=font.render(CHORDLIST[c],True,'black')
             c+=1
             screen.blit(clabel,[30+(i*150),y])
+    pygame.draw.rect(screen,'grey',[20,20,1240,410],border_radius=12)
 
+    playbutton=pygame.Rect([1140,40,100,100])
+    pygame.draw.rect(screen,'#81FE9A',playbutton,border_radius=12)
+
+    stopbutton=pygame.Rect([1140,160,100,100])
+    pygame.draw.rect(screen,'#FE8181',stopbutton,border_radius=12)
+    
 
 
     for event in pygame.event.get():
@@ -60,21 +78,33 @@ while run==True:
             pos=pygame.mouse.get_pos()
             for index,b in enumerate(buttonlist):
                 if b.collidepoint(pos):
-                    player(CHORDS[CHORDLIST[index]])
+                    chord_to_play=CHORDS[CHORDLIST[index]]
+                    progression.append(chord_to_play)
+                    if len(progression) > 4:
+                        del progression[0]
+
+            if playbutton.collidepoint(pos):
+                playing=True
+            
+    if playing:
+        current_time = time.time()  
+        if current_time - last_play_time >= 1:  
+            if play_index < len(progression):
+                player(progression[play_index])  
+                play_index += 1  
+                last_play_time = current_time 
+            else:
+                play_index = 0  
+        if stopbutton.collidepoint(pygame.mouse.get_pos()):
+                if pygame.mouse.get_pressed()[0]:
+                    playing=False    
+
                 
 
+                    
 
 
-
-
-
-
-
-        
-            
-
-        
-            
+               
     pygame.display.flip()
 pygame.quit()
 
