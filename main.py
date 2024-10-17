@@ -7,6 +7,7 @@ screen = pygame.display.set_mode([1280, 720])
 font = pygame.font.Font('assets/NotoSans-VariableFont_wdth,wght.ttf', 48)
 current_bpm = 60
 line_pos = -160
+
 CHORDS = {
     "C": ["C", "E", "G"],
     "Cm": ["C", "D#", "G"],
@@ -27,7 +28,7 @@ CHORDS = {
 CHORDLIST = list(CHORDS.keys())
 CHORDLIST.sort()
 color_inactive = pygame.Color('lightskyblue3')
-color_active = pygame.Color('dodgerblue2')
+color_active = pygame.Color('white')
 
 
 def player(c):
@@ -103,8 +104,6 @@ while running:
                         progression.remove(chord_to_play)
                     if len(progression) > 4:
                         del progression[0]
-
-        if pygame.mouse.get_pressed()[0]:
             if playbutton_rect.collidepoint(pos):
                 playing = True
             if plus_rect.collidepoint(pos):
