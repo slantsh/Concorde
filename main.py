@@ -41,6 +41,7 @@ def player(c):
         for x,j in enumerate(s):
             pygame.mixer.Channel(x).play(j)
 
+
 plus=pygame.transform.scale(pygame.image.load('assets/plus.png'),(80,80))
 minus=pygame.transform.scale(pygame.image.load('assets/minus.png'),(80,80))
 plusrect=pygame.Rect([1110, 460, 80, 80])
@@ -54,6 +55,8 @@ def tracker():
 playing=False
 last_play_time=time.time()
 play_index=0
+
+rythm1='0 000 1 111 2 222 3 333'
 
 running=True
 while running:
@@ -94,7 +97,6 @@ while running:
         if event.type==pygame.QUIT:
             running=False
         if event.type==pygame.MOUSEBUTTONDOWN:
-            global pos
             pos=pygame.mouse.get_pos()
             for index,b in enumerate(buttonlist):
                 if b.collidepoint(pos):
@@ -112,7 +114,7 @@ while running:
 
     
     if playing:
-        current_time = time.time()  
+        current_time = time.time()          
         if current_time - last_play_time >= 60/current_bpm:  
             if play_index < len(progression):
                 player(progression[play_index])  
