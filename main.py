@@ -1,32 +1,23 @@
 import pygame
 import time
+import getchords
 
 pygame.init()
+
 timer = pygame.time.Clock()
 screen = pygame.display.set_mode([1280, 720])
 font = pygame.font.Font('assets/NotoSans-VariableFont_wdth,wght.ttf', 48)
+icon= pygame.image.load('assets/windowicon.png')
+pygame.display.set_icon(icon)
+pygame.display.set_caption("Concorde")
+
 current_bpm = 60
 line_pos = -160
 
-CHORDS = {
-    "C": ["C", "E", "G"],
-    "Cm": ["C", "D#", "G"],
-    "D": ["D", "F#", "A"],
-    "Dm": ["D", "F", "A"],
-    "E": ["E", "G#", "B"],
-    "Em": ["E", "G", "B"],
-    "F": ["F", "A", "C"],
-    "Fm": ["F", "G#", "C"],
-    "G": ["G", "B", "D"],
-    "Gm": ["G", "A#", "D"],
-    "A": ["A", "C#", "E"],
-    "Am": ["A", "C", "E"],
-    "B": ["B", "D#", "F#"],
-    "Bm": ["B", "D", "F#"]
-}
+chord_dict=getchords.fetch_chords()
 
-CHORDLIST = list(CHORDS.keys())
-CHORDLIST.sort()
+chord_list = list(chord_dict.keys())
+chord_list.sort()
 color_inactive = pygame.Color('lightskyblue3')
 color_active = pygame.Color('white')
 
@@ -55,10 +46,14 @@ while running:
     # Drawing chord buttons
     for y in [450, 600]:
         for i in range(7):
-            rectcolor = color_active if CHORDS[CHORDLIST[c]] in progression else color_inactive
+            if chord_dict[chord_list[c]] in progression:
+                rectcolor = color_active
+            else:
+                rectcolor = color_inactive
+
             pygame.draw.rect(screen, rectcolor, [20 + (i * 150), y, 100, 100], border_radius=12)
             buttonlist.append(pygame.Rect([20 + (i * 150), y, 100, 100]))
-            clabel = font.render(CHORDLIST[c], True, 'black')
+            clabel = font.render(chord_list[c], True, 'black')
             c += 1
             screen.blit(clabel, [30 + (i * 150), y])
 
@@ -97,7 +92,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             for index, b in enumerate(buttonlist):
                 if b.collidepoint(pos):
-                    chord_to_play = CHORDS[CHORDLIST[index]]
+                    chord_to_play = chord_dict[chord_list[index]]
                     if chord_to_play not in progression:
                         progression.append(chord_to_play)
                     else:
