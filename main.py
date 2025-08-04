@@ -1,6 +1,6 @@
 import pygame
 import time
-import getchords
+import pickle
 
 pygame.init()
 
@@ -14,7 +14,8 @@ pygame.display.set_caption("Concorde")
 current_bpm = 60
 line_pos = -160
 
-chord_dict=getchords.fetch_chords()
+with open('chordbase.bin','rb') as f:
+    chord_dict=pickle.load(f)
 
 chord_list = list(chord_dict.keys())
 chord_list.sort()
