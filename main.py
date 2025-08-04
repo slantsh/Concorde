@@ -6,7 +6,7 @@ pygame.init()
 
 timer = pygame.time.Clock()
 screen = pygame.display.set_mode([1280, 720])
-font = pygame.font.Font('assets/NotoSans-VariableFont_wdth,wght.ttf', 48)
+font = pygame.font.Font('assets/NotoSans.ttf', 48)
 icon= pygame.image.load('assets/windowicon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Concorde")
@@ -44,7 +44,7 @@ while running:
     c = 0
     buttonlist = []
 
-    # Drawing chord buttons
+    # Displaying chord buttons
     for y in [450, 600]:
         for i in range(7):
             if chord_dict[chord_list[c]] in progression:
@@ -60,7 +60,7 @@ while running:
 
     pygame.draw.rect(screen, color_inactive, [20, 20, 1240, 410], border_radius=12)
 
-    # Play and Stop buttons
+    # Displaying start and stop buttons
     playbutton_rect = pygame.Rect([1100, 40, 100, 100])
     pygame.draw.rect(screen, '#81FE9A', playbutton_rect, border_radius=12)
 
@@ -85,7 +85,7 @@ while running:
         pygame.draw.rect(screen, "black", [i, 20, 10, 410])
     pygame.draw.rect(screen, "white", [line_pos, 20, 10, 410])
 
-    # Event handling
+    # Handling clicks
     for event in pygame.event.get():
         pos = pygame.mouse.get_pos()
         if event.type == pygame.QUIT:
@@ -107,7 +107,7 @@ while running:
             if minus_rect.collidepoint(pos):
                 current_bpm = max(current_bpm - 1, 30)
 
-    # Handle playback
+    # Handle playback of chords
     if playing:
         current_time = time.time()
         time_between = current_time - last_play_time
