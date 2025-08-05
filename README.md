@@ -28,7 +28,7 @@ pip install pygame
 ```
 Clone the repo and run main.py
 ```bash
-git clone https://github.com/yourusername/concorde.git
+git clone https://github.com/slantsh/Concorde
 cd concorde
 python main.py
 ```
